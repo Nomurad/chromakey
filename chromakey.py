@@ -3,16 +3,33 @@ import argparse
 import cv2
 import numpy as np
 
-img_name_default = "test"
-extension = "." + "png"
+img_name_default = "test.png"
+fname = "masked.png"
+# tablet_folder = "PC\Nexus 7\内部ストレージ\DCIM\Camera"
+# extension = "." + "png"
 
-def main(img_name):
+def main(img_name, fname):
     # dir_name = "."
-    file_name = img_name + extension
-    export_chromakey(file_name)
+    file_name = listing_file()
+    # file_name = img_name
+    export_chromakey(file_name, fname)
+
+def listing_file():
+    files = (glob.glob("images/*"))
+    for i, file in enumerate(files):
+        fname_for_print = file.split("\\")[-1]
+        print("[",i,"]",fname_for_print)
+    
+    fnum = input("select file No. > ")
+    fnum = int(fnum)
+    if fnum >= 0 and fnum <= len(files):
+        print(files[fnum])
+        return files[fnum]
+    else:
+        print("failed.")
 
 
-def export_chromakey(file_name):
+def export_chromakey(file_name , fname):
     print("file name is ", file_name)
 
     #HSV形式で抜き出す色空間の指定
@@ -38,19 +55,19 @@ def export_chromakey(file_name):
 
     # result = cv2.cvtColor(result_hsv, cv2.COLOR_HSV2BGR)
 
-    cv2.imwrite("chromakey_"+file_name, result_hsv)
+    cv2.imwrite("chromakey.png", result_hsv)
 
-    img = cv2.imread("chromakey_"+file_name, 1)
+    img = cv2.imread("chromakey.png", 1)
     # img = cv2.imread(file_name, cv2.IMREAD_UNCHANGED)
     # print(img)
-    print(img.shape)
+    # print(img.shape)
     
     
     h, w = img.shape[:2]
     mask = np.zeros((h+2, w+2), dtype=np.uint8)
 
     flags = 4 | 255 << 8 | cv2.FLOODFILL_MASK_ONLY
-    print(bin(flags))
+    # print(bin(flags))
 
     if img.shape[-1] < 4:
         rgba = cv2.cvtColor(img, cv2.COLOR_BGR2BGRA)
@@ -62,7 +79,8 @@ def export_chromakey(file_name):
 
     mask = mask[1:-1, 1:-1]
     rgba[mask==255] = 0
-    cv2.imwrite("masked.png", rgba)
+    # cv2.imwrite(fname, rgba)
+    cv2.imwrite(os.path.join("airplanes",fname), rgba)
 
     # cv2.imshow("image",img)
     cv2.waitKey(0)
@@ -78,6 +96,7 @@ parser = argparse.ArgumentParser()
 #引数設定
 parser.add_argument("--image")
 parser.add_argument("--extension")
+parser.add_argument("--name")
 
 args = parser.parse_args()
 
@@ -88,7 +107,13 @@ if __name__ == "__main__":
     else:
         img_name = img_name_default
 
-    if args.extension:
-        extension = args.extension
+    if args.name:
+        fname = args.name + ".png"
+    else:
+        # fname = img_name_default
+        fname = input("set output filename > ") + ".png"
+        print(fname)
+    # if args.extension:
+    #     extension = args.extension
 
-    main(img_name)
+    main(img_name,fname)
