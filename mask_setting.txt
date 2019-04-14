@@ -1,8 +1,20 @@
-#H=>(0-180), S,V=>(0-255)
-#lower
+# #H=>(0-180), S,V=>(0-255)
+# #lower
 #H S V
-80 60 0
+90 50 0
 
 #upper
 #H S V
 120 255 255
+
+#green ver
+#lower
+35 60 0
+#upper
+100 255 255
+
+#brown ver
+#lower
+0 30 75
+#upper
+65 255 150
