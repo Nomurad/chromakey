@@ -62,6 +62,7 @@ def export_chromakey(file_name , fname, mask_flag=0):
         lower_color = mask_para[4,:]
         upper_color = mask_para[5,:]
     
+    
     elif mask_flag == -1:
         h, w = hsv.shape[:2]
         h -= 1
