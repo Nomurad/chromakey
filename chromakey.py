@@ -38,14 +38,7 @@ def export_chromakey(file_name , fname, mask_flag=0):
     #HSV形式で抜き出す色空間の指定
     try:
         mask_para = np.loadtxt("mask_setting.txt", dtype=np.uint8)
-<<<<<<< HEAD
         print(mask_para.shape)
-=======
-        # print(mask_para)
-        lower_color = mask_para[0]
-        upper_color = mask_para[1]
-
->>>>>>> b2124996cb3ceb50ed7fcc2d45ad0d90fc01093d
     except:
         print("mask_setting.txt is not found.")
         lower_color = np.array([70, 40, 0])
@@ -84,15 +77,9 @@ def export_chromakey(file_name , fname, mask_flag=0):
     # img = cv2.imread(file_name, cv2.IMREAD_UNCHANGED)
     # print(hsv)
     # print(img)
-<<<<<<< HEAD
     # print(img.shape)
 
 
-=======
-    print("image file size ", img.shape)
-    
-    
->>>>>>> b2124996cb3ceb50ed7fcc2d45ad0d90fc01093d
     h, w = img.shape[:2]
     mask = np.zeros((h+2, w+2), dtype=np.uint8)
 
