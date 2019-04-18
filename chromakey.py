@@ -131,8 +131,8 @@ parser.add_argument("--image")
 # parser.add_argument("--extension")
 parser.add_argument("--name")
 parser.add_argument("--backcolor")
-parser.add_argument("--dev", action="store_true")
-parser.add_argument("--margin",type=int)
+parser.add_argument("-a","--auto", action="store_true")
+parser.add_argument("--margin",type=int, default=20)
 
 args = parser.parse_args()
 
@@ -157,9 +157,8 @@ if __name__ == "__main__":
         mask_flag = int(args.backcolor)
         print("mask",mask_flag)
 
-    if args.dev:
+    if args.auto:
         mask_flag = -1
-        print("dev mode.")
 
     # if args.extension:
     #     extension = args.extension
