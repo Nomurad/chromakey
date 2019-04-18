@@ -9,7 +9,7 @@
 <img width=300 src=airplanes/_test.png>
 
 ## Usage
-    python chromakey.py [--image][--name][--backcolor]
+    python chromakey.py [--image][--name][-a,--auto][--backcolor]
 
 * [--image]  
     元画像のファイルを指定
@@ -18,6 +18,9 @@
 * [--name]  
     出力ファイル名を指定
     指定しなければスクリプト実行時にファイル名を入力する必要あり
+* [-a,--auto]  
+    背景色を自動で設定する
+    このオプションを付けた場合，backcolor指定は無効
 
 * [--backcolor]  
     数字で指定(0~)
