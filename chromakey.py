@@ -5,6 +5,7 @@ import numpy as np
 
 img_name_default = "test.png"
 fname = "masked.png"
+margin = 30
 # tablet_folder = "PC\Nexus 7\内部ストレージ\DCIM\Camera"
 # extension = "." + "png"
 
@@ -62,18 +63,20 @@ def export_chromakey(file_name , fname, mask_flag=0):
         lower_color = mask_para[4,:]
         upper_color = mask_para[5,:]
     
-    
+
     elif mask_flag == -1:
+        # margin = 30
         h, w = hsv.shape[:2]
         h -= 1
         w -= 1
-        hsv_h = np.mean(hsv[10, 10, 0] ,hsv[10, w-10, 0] ,hsv[h-10, 10, 0] ,hsv[h-10, w-10, 0])
-        hsv_s = np.mean(hsv[10, 10, 1] ,hsv[10, w-10, 1] ,hsv[h-10, 10, 1] ,hsv[h-10, w-10, 1])
-        hsv_v = np.mean(hsv[10, 10, 2] ,hsv[10, w-10, 2] ,hsv[h-10, 10, 2] ,hsv[h-10, w-10, 2])
-        center_color = np.array([hsv_h, hsv_s, hsv_v])
+        hsv = hsv.astype(np.int16)
+        hsv_h = np.array([hsv[10, 10, 0] ,hsv[10, w-10, 0] ,hsv[h-10, 10, 0] ,hsv[h-10, w-10, 0]])
+        hsv_s = np.array([hsv[10, 10, 1] ,hsv[10, w-10, 1] ,hsv[h-10, 10, 1] ,hsv[h-10, w-10, 1]])
+        hsv_v = np.array([hsv[10, 10, 2] ,hsv[10, w-10, 2] ,hsv[h-10, 10, 2] ,hsv[h-10, w-10, 2]])
+        center_color = np.array([hsv_h.mean(), hsv_s.mean(), hsv_v.mean()])
         print((center_color))
-        lower_color = center_color + np.array([-25,-25,-25]) 
-        upper_color = center_color + np.array([25, 25, 25])
+        lower_color = center_color + np.array([-margin,10-center_color[1],-center_color[2]]) 
+        upper_color = center_color + np.array([margin, 255-center_color[1], 255-center_color[2]])
         print(hsv.shape[0])
 
     print("lower ",lower_color, "  upper", upper_color)
@@ -129,6 +132,7 @@ parser.add_argument("--image")
 parser.add_argument("--name")
 parser.add_argument("--backcolor")
 parser.add_argument("--dev", action="store_true")
+parser.add_argument("--margin",type=int)
 
 args = parser.parse_args()
 
