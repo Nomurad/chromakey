@@ -37,10 +37,16 @@ def listing_file():
 def export_chromakey(file_name , fname, mask_flag=0):
     print("file name is ", file_name)
 
+    img = cv2.imread(file_name, cv2.IMREAD_COLOR)
+    hsv = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
+
+    if img is None:
+        raise FileNotFoundError("Reading image file"+ file_name +" failed.")
+
     #HSV形式で抜き出す色空間の指定
     try:
         mask_para = np.loadtxt("mask_setting.txt", dtype=np.uint8)
-        print(mask_para.shape)
+        # print(mask_para.shape)
     except:
         print("mask_setting.txt is not found.")
         lower_color = np.array([70, 40, 0])
@@ -55,18 +61,22 @@ def export_chromakey(file_name , fname, mask_flag=0):
     elif mask_flag == 2:
         lower_color = mask_para[4,:]
         upper_color = mask_para[5,:]
+    
+    elif mask_flag == -1:
+        h, w = hsv.shape[:2]
+        h -= 1
+        w -= 1
+        hsv_h = np.mean(hsv[10, 10, 0] ,hsv[10, w-10, 0] ,hsv[h-10, 10, 0] ,hsv[h-10, w-10, 0])
+        hsv_s = np.mean(hsv[10, 10, 1] ,hsv[10, w-10, 1] ,hsv[h-10, 10, 1] ,hsv[h-10, w-10, 1])
+        hsv_v = np.mean(hsv[10, 10, 2] ,hsv[10, w-10, 2] ,hsv[h-10, 10, 2] ,hsv[h-10, w-10, 2])
+        center_color = np.array([hsv_h, hsv_s, hsv_v])
+        print((center_color))
+        lower_color = center_color + np.array([-25,-25,-25]) 
+        upper_color = center_color + np.array([25, 25, 25])
+        print(hsv.shape[0])
 
     print("lower ",lower_color, "  upper", upper_color)
 
-    # print(lower_color, upper_color)
-
-    img = cv2.imread(file_name, cv2.IMREAD_COLOR)
-    # img = img/255
-    if img is None:
-        raise FileNotFoundError("Reading image file"+ file_name +" failed.")
-
-
-    hsv = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
     mask = cv2.inRange(hsv, lower_color, upper_color)   #maskを設定
     inv_mask = cv2.bitwise_not(mask)    #maskを反転
     result_hsv = cv2.bitwise_and(img, img, mask=inv_mask)
@@ -117,6 +127,7 @@ parser.add_argument("--image")
 # parser.add_argument("--extension")
 parser.add_argument("--name")
 parser.add_argument("--backcolor")
+parser.add_argument("--dev", action="store_true")
 
 args = parser.parse_args()
 
@@ -140,6 +151,10 @@ if __name__ == "__main__":
     if args.backcolor:
         mask_flag = int(args.backcolor)
         print("mask",mask_flag)
+
+    if args.dev:
+        mask_flag = -1
+        print("dev mode.")
 
     # if args.extension:
     #     extension = args.extension
