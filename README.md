@@ -1,9 +1,10 @@
-# chromakey
+# Chromakey
 
 画像をクロマキー処理する
 
 * Before
 <img width=300 src=https://github.com/Nomurad/chromakey/blob/master/images/DSC_0530.JPG>
+
 * After
 <img width=300 src=https://github.com/Nomurad/chromakey/blob/master/airplanes/_test.png>
 
