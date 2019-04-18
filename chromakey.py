@@ -73,9 +73,9 @@ def export_chromakey(file_name , fname, mask_flag=0):
 
     # result = cv2.cvtColor(result_hsv, cv2.COLOR_HSV2BGR)
 
-    cv2.imwrite("chromakey.png", result_hsv)
+    cv2.imwrite("_chromakey.png", result_hsv)
 
-    img = cv2.imread("chromakey.png", 1)
+    img = cv2.imread("_chromakey.png", 1)
     # img = cv2.imread(file_name, cv2.IMREAD_UNCHANGED)
     # print(hsv)
     # print(img)
