@@ -3,9 +3,9 @@
 画像をクロマキー処理する
 
 * Before
-<img width=200 src=https://github.com/Nomurad/chromakey/blob/master/images/DSC_0530.JPG>
+<img width=300 src=https://github.com/Nomurad/chromakey/blob/master/images/DSC_0530.JPG>
 * After
-![After](https://github.com/Nomurad/chromakey/blob/master/airplanes/_test.png)
+<img width=300 src=https://github.com/Nomurad/chromakey/blob/master/airplanes/_test.png>
 
 ## Usage
     python chromakey.py [--image][--name][--backcolor]
