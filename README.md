@@ -3,7 +3,7 @@
 画像をクロマキー処理する
 
 * Before
-![Before](https://github.com/Nomurad/chromakey/blob/master/images/DSC_0530.JPG)
+<img width=200 https://github.com/Nomurad/chromakey/blob/master/images/DSC_0530.JPG>
 * After
 ![After](https://github.com/Nomurad/chromakey/blob/master/airplanes/_test.png)
 
