@@ -23,7 +23,7 @@
     このオプションを付けた場合，backcolor指定は無効
 
 * [--backcolor]  
-    数字で指定(0~)
+    数字で指定(0~)  
     mask_setting.txtにhsv形式で切り抜く色範囲を指定(任意の数)
     `--backcolor n` でn番目に書き込んだhsvの値を使う
 
