@@ -15,6 +15,8 @@ def main(img_name, fname, mask_flag):
     export_chromakey(file_name, fname, mask_flag)
 
 def listing_file():
+    if not os.path.exists("images/"):
+        os.makedirs("images")
     files = (glob.glob("images/*"))
     for i, file in enumerate(files):
         fname_for_print = file.split("\\")[-1]
