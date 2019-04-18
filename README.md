@@ -23,6 +23,6 @@
     mask_setting.txtにhsv形式で切り抜く色範囲を指定(任意の数)
     `--backcolor n` でn番目に書き込んだhsvの値を使う
 
-## dependency libraries
+## Dependency Libraries
 * numpy
 * opencv-python

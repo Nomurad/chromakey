@@ -114,7 +114,7 @@ parser = argparse.ArgumentParser()
 
 #引数設定
 parser.add_argument("--image")
-parser.add_argument("--extension")
+# parser.add_argument("--extension")
 parser.add_argument("--name")
 parser.add_argument("--backcolor")
 
