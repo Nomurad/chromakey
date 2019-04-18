@@ -46,8 +46,6 @@ def export_chromakey(file_name , fname, mask_flag=0):
         lower_color = np.array([70, 40, 0])
         upper_color = np.array([130, 255, 255])
 
-    print("lower ",lower_color, "  upper", upper_color)
-
     if mask_flag == 0:
         lower_color = mask_para[0,:]
         upper_color = mask_para[1,:]
@@ -58,7 +56,9 @@ def export_chromakey(file_name , fname, mask_flag=0):
         lower_color = mask_para[4,:]
         upper_color = mask_para[5,:]
 
-    print(lower_color, upper_color)
+    print("lower ",lower_color, "  upper", upper_color)
+
+    # print(lower_color, upper_color)
 
     img = cv2.imread(file_name, cv2.IMREAD_COLOR)
     # img = img/255
